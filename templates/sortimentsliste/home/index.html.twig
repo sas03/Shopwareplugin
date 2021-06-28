@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+    <nav class="navbar navbar-dark bg-dark sticky-top">
+        <a href="{{ path('home') }}" class="navbar-brand">
+            SSA Shop
+        </a>
+        <div class="navbar-nav">
+            {% if cart.items.count > 0 %}
+                <a href="{{ path('cart') }}" class="btn btn-danger">
+                    <span>{{ cart.items.count }} Product(s) in</span>
+                    Cart
+                </a>
+            {% else %}
+                <a href="{{ path('cart') }}" class="btn btn-light">
+                    Cart
+                </a>
+            {% endif %}
+        </div>
+    </nav>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="mt-3 mb-4">Products</h1>
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="{{ product.image }}" alt="{{ product.name }}" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <div class="d-flex justify-content-between align-item-center">
+                            <a href="{{ path('product.detail', {id: product.id}) }}" class="btn btn-dark">View details</a>
+                            <span class="h5 mt-auto">{{ product.price }} €</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
